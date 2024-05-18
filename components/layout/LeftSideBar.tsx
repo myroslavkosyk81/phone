@@ -11,7 +11,7 @@ const LeftSideBar = () => {
    const pathName = usePathname();
   return (
     <div className=" h-screen left-0 top-0 sticky p-10 flex flex-col gap-16 bg-blue-2 shadow-xl max-lg:hidden">
-      <Image src="/logo.png" alt="logo" width={70} height={40} />
+      <Image src="/logo.png" alt="logo" width={40} height={40} />
       <div className="flex flex-col gap-12">
         {navLinks.map((link) => (
           <Link
