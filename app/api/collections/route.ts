@@ -7,7 +7,7 @@ import Collection from "@/lib/models/Collection";
 export const POST = async (req: NextRequest) => {
    try {
       const { userId } = auth();
-
+      // console.log(userId)
       if (!userId) {
          return new NextResponse("Unauthorized", {status: 403})
       };
@@ -34,5 +34,16 @@ export const POST = async (req: NextRequest) => {
    } catch (error) {
       console.log("[collections_POST]", error);
       return new NextResponse("Internal Server error", { status: 500})
+   }
+};
+
+export const GET = async (req: NextRequest) => {
+   try {
+      await connectDb();
+      const collections = await Collection.find().sort({ createdAt: 'desc'})
+      return NextResponse.json(collections, {status: 200})
+   } catch (error) {
+      console.log("[collections_GET], error")
+      return new NextResponse("Internal Server error", {status: 500})
    }
 }
