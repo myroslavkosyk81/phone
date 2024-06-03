@@ -26,7 +26,7 @@ import Delete from "../custom_ui/Delete";
 const formSchema = z.object({
    title: z.string().min(2).max(20),
    description: z.string().min(2).max(20),
-   image: z.string()
+   image: z.string(),
  });
 
 interface CollectionFormProps {

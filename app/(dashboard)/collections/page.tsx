@@ -24,10 +24,13 @@ const Collections = () => {
       console.log("[collections_GET]", error)
     }
   };
-  useEffect(() => {
+ 
+    useEffect(() => {
     getCollections();
     }, []);
-    // console.log(collections);
+  
+  
+    console.log(collections);
   return (
     <div className=' px-10 py-5'>
       <div className=' flex items-center justify-between'>

@@ -15,6 +15,7 @@ const CollectionDetails = ({ params }: { params: { collectionId: string }}) => {
          })
          const data = await res.json();
          setCollectionDetails(data);
+         console.log(data)
          setLoading(false);
       } catch (error) {
          console.log("[collectionId_GET]", error)
