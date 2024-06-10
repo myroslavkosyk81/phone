@@ -18,6 +18,7 @@ const MultiText: React.FC<MultiTextProps> = ({placeholder, value, onChange, onRe
    onChange(item);
    setInputValue('');
   }
+  // console.log(inputValue)
    return (
      <>
        <Input

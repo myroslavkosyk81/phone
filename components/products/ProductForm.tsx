@@ -47,17 +47,17 @@ interface ProductFormProps {
 const ProductForm: React.FC<ProductFormProps> = ( {initialData} ) => {
   const router = useRouter();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [collections, setCollections] = useState<CollectionType[]>([]);
   const getCollections = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const res = await fetch("/api/collections", {
         method: "GET",
       });
       const data = await res.json();
-      console.log(data)
+      // console.log(data)
       setCollections(data);
       setLoading(false);
     } catch (error) {
@@ -70,6 +70,19 @@ const ProductForm: React.FC<ProductFormProps> = ( {initialData} ) => {
     getCollections();
   }, []);
 
+  // const [media, setMedia] = useState<string[]>([]);
+  // console.log(media)
+  // const handleImageUpload = (newUrl: string) => {
+  //   console.log(newUrl)
+  //   setMedia((prevMedia) => [...prevMedia, newUrl]);
+  // };
+  const handleImageUpload = (newUrl: string) => {
+    form.setValue("media", [...form.getValues("media"), newUrl]);
+  };
+
+  // const handleImageRemove = (url: string) => {
+  //   setMedia((prevMedia) => prevMedia.filter((item) => item !== url));
+  // };
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: initialData ? initialData : {
@@ -111,10 +124,11 @@ try {
     router.push("/products");
   }
 } catch (error) {
-  console.log("[products_POST", error);
+  console.log("[products_POST]", error);
   toast.error("Something went wrong, please try again")
 }
 };
+
   return (
     <div className="p-10">
       {initialData ? (
@@ -143,7 +157,7 @@ try {
                   />
                 </FormControl>
 
-                <FormMessage />
+                <FormMessage className="text-red-1" />
               </FormItem>
             )}
           />
@@ -162,7 +176,7 @@ try {
                   />
                 </FormControl>
 
-                <FormMessage />
+                <FormMessage className="text-red-1" />
               </FormItem>
             )}
           />
@@ -175,7 +189,8 @@ try {
                 <FormControl>
                   <ImageUpload
                     value={field.value}
-                    onChange={(url) => field.onChange([...field.value, url])}
+                    onChange={handleImageUpload}
+                  
                     onRemove={(url) =>
                       field.onChange([
                         ...field.value.filter((image) => image !== url),
@@ -183,8 +198,8 @@ try {
                     }
                   />
                 </FormControl>
-
-                <FormMessage />
+                      {/* <div>{media}</div> */}
+                <FormMessage className="text-red-1" />
               </FormItem>
             )}
           />
@@ -204,7 +219,7 @@ try {
                     />
                   </FormControl>
 
-                  <FormMessage />
+                  <FormMessage className="text-red-1" />
                 </FormItem>
               )}
             />
@@ -223,7 +238,7 @@ try {
                     />
                   </FormControl>
 
-                  <FormMessage />
+                  <FormMessage className="text-red-1" />
                 </FormItem>
               )}
             />
@@ -241,7 +256,7 @@ try {
                     />
                   </FormControl>
 
-                  <FormMessage />
+                  <FormMessage className="text-red-1" />
                 </FormItem>
               )}
             />
@@ -263,7 +278,8 @@ try {
                       }
                     />
                   </FormControl>
-                  <FormMessage />
+                  {/* <div>{field.value}</div> */}
+                  <FormMessage className="text-red-1" />
                 </FormItem>
               )}
             />
@@ -287,7 +303,7 @@ try {
                       }
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-1" />
                 </FormItem>
               )}
             />
@@ -309,7 +325,7 @@ try {
                       }
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-1" />
                 </FormItem>
               )}
             />
@@ -331,7 +347,7 @@ try {
                       }
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-1" />
                 </FormItem>
               )}
             />

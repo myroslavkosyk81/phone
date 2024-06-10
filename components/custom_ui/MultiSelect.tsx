@@ -36,8 +36,8 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
 }) => {
    const [inputValue, setInputValue] = useState("");
    const [open, setOpen] = useState(false);
-   console.log(collections)
-   console.log(value)
+   // console.log(collections)
+  //  console.log(value)
 
    let selected: CollectionType[]
    if (value.length === 0) {
@@ -61,10 +61,12 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
             ))
          }
         
-        <CommandInput
+        {/* <CommandInput */}
+        <input
+        className='h-10'
           placeholder={placeholder}
           value={inputValue}
-          onValueChange={setInputValue}
+          onChange={setInputValue} /// maybe it must be onValueChange
           onBlur={() => setOpen(false)}
           onFocus={() => setOpen(true)}
         />

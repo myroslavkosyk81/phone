@@ -73,7 +73,7 @@ try {
     router.push("/collections");
   }
 } catch (error) {
-  console.log("[collections_POST", error);
+  console.log("[collections_POST]", error);
   toast.error("Something went wrong, please try again")
 }
 };

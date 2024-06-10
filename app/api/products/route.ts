@@ -11,6 +11,7 @@ export const POST = async (req: NextRequest) => {
       }
       await connectDb();
       const {title, description, media, category, collections, tags, sizes, colors, price, expense} = await req.json();
+      console.log("Received media array:", media);
       
       if(!title || !description || !media || !category || !price || !expense) {
          return new NextResponse("Not enough data to create a product", { status: 400 });
@@ -31,7 +32,7 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json(newProduct, { status: 200});
 
    } catch (error) {
-      console.log("[products_POST", error);
+      console.log("[products_POST]", error);
       return new NextResponse("Internal error", {status: 500});
    }
 }
