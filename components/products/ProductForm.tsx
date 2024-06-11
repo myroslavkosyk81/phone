@@ -24,6 +24,7 @@ import toast from "react-hot-toast";
 import Delete from "../custom_ui/Delete";
 import MultiText from "../custom_ui/MultiText";
 import MultiSelect from "../custom_ui/MultiSelect";
+import Loader from "../custom_ui/Loader";
 
 const formSchema = z.object({
    title: z.string().min(2).max(20),
@@ -85,7 +86,7 @@ const ProductForm: React.FC<ProductFormProps> = ( {initialData} ) => {
   // };
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
-      defaultValues: initialData ? initialData : {
+      defaultValues: initialData ? {...initialData, collections: initialData.collections.map((collection) => collection._id)} : {
         title: "",
         description: "",
         media: [],
@@ -129,12 +130,12 @@ try {
 }
 };
 
-  return (
+  return loading ? <Loader /> : (
     <div className="p-10">
       {initialData ? (
         <div className="flex items-center justify-between">
           <p className=" text-heading2-bold">Edit Product</p>
-          <Delete id={initialData._id} />
+          <Delete id={initialData._id} item="product" />
         </div>
       ) : (
         <p className=" text-heading2-bold">Create Product</p>
@@ -283,7 +284,7 @@ try {
                 </FormItem>
               )}
             />
-            
+            { collections.length > 0 && (
             <FormField
               control={form.control}
               name="collections"
@@ -307,6 +308,7 @@ try {
                 </FormItem>
               )}
             />
+            )}
             <FormField
               control={form.control}
               name="colors"
@@ -359,7 +361,7 @@ try {
             </Button>
             <Button
               type="button"
-              onClick={() => router.push("/collections")}
+              onClick={() => router.push("/products")}
               className=" bg-blue-1 text-white"
             >
               Discard
