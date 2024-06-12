@@ -1,6 +1,8 @@
 import Collection from "@/lib/models/Collection";
+import Product from "@/lib/models/Product";
 import { connectDb } from "@/lib/mongoDB";
 import { auth } from "@clerk/nextjs/server";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -53,6 +55,13 @@ export const DELETE = async (req: NextRequest, { params }: {params: { collection
 
       await connectDb();
       await Collection.findByIdAndDelete(params.collectionId);
+
+      await Product.updateMany(
+         {collections: params.collectionId},
+         {$pull: {collections: params.collectionId}}
+      );
+
+
       return new NextResponse("Collection is deleted", { status: 200});
 
    } catch (error) {
