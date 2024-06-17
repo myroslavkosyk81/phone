@@ -97,8 +97,25 @@ export const DELETE = async (req: NextRequest, { params }: {params: { productId:
       }
 
       await connectDb();
-      await Product.findByIdAndDelete(params.productId);
-      return new NextResponse("Product is deleted", { status: 200});
+      const product = await Product.findById(params.productId);
+      if (!product) {
+         return new NextResponse(JSON.stringify({message: "Product not found"}), {status: 404})
+      }
+      await Product.findByIdAndDelete(product._id);
+      
+      // update collection
+      await Promise.all(
+         product.collections.map((collectionId: string) =>
+            Collection.findByIdAndUpdate(collectionId, {
+               $pull: { products: product._id},
+            })
+         )
+      )
+
+
+
+      
+      return new NextResponse(JSON.stringify({ message: "Product is deleted"}), { status: 200});
 
    } catch (error) {
       console.log("[productId_DELETE]", error);
