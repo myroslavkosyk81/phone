@@ -66,7 +66,11 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         className='h-10'
           placeholder={placeholder}
           value={inputValue}
-          onChange={setInputValue} /// maybe it must be onValueChange
+          // onChange={setInputValue} /// maybe it must be onValueChange
+          // onChange={(string) => setInputValue([...string])}
+          onChange={(event) => {
+            setInputValue(event.target.value);
+          }}
           onBlur={() => setOpen(false)}
           onFocus={() => setOpen(true)}
         />
