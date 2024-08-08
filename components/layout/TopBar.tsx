@@ -1,13 +1,14 @@
 "use client"
 import { navLinks } from '@/lib/constants'
-import { UserButton } from '@clerk/nextjs'
-import { Menu } from 'lucide-react'
+import { UserButton, useUser } from '@clerk/nextjs'
+import { CircleUserRoundIcon, Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useState } from 'react'
 
 const TopBar = () => {
+  const { user } = useUser();
   const [dropdownMenu, setDropdownMenu] = useState(false);
   const pathName = usePathname();
 
@@ -34,7 +35,8 @@ const TopBar = () => {
           ))}
        </div>
         )}
-        <UserButton />
+        {user ? (<UserButton afterSignOutUrl='/sign-in' />) : (<Link href='/sign-in' className=' text-base-bold'><CircleUserRoundIcon /></Link>)}
+        {/* <UserButton /> */}
         
       </div>
     </div>

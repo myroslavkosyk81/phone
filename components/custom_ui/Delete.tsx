@@ -44,7 +44,7 @@ const Delete: React.FC<DeleteProps> = ({ item, id }) => {
     
     <AlertDialog>
     <AlertDialogTrigger>
-      <Button className='bg-red-1 text-white'>
+      <Button type='button' className='bg-red-1 text-white'>
         <Trash className=' h-4 w-4' />
       </Button>
     </AlertDialogTrigger>
@@ -57,7 +57,7 @@ const Delete: React.FC<DeleteProps> = ({ item, id }) => {
       </AlertDialogHeader>
       <AlertDialogFooter>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction className=' bg-red-1 text-white' onClick={onDelete}>Continue deleting</AlertDialogAction>
+        <AlertDialogAction type='button' className=' bg-red-1 text-white' onClick={onDelete}>Continue deleting</AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>

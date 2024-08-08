@@ -1,14 +1,16 @@
 "use client"
-import { UserButton } from '@clerk/nextjs'
+import { UserButton, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 import { navLinks } from '@/lib/constants'
 import { usePathname } from 'next/navigation'
+import { CircleUserRoundIcon } from 'lucide-react'
 
 const LeftSideBar = () => {
    const pathName = usePathname();
+   const { user } = useUser();
   return (
     <div className=" h-screen left-0 top-0 sticky p-10 flex flex-col gap-16 bg-blue-2 shadow-xl max-lg:hidden">
       <Image src="/logo.png" alt="logo" width={40} height={40} />
@@ -26,8 +28,9 @@ const LeftSideBar = () => {
         ))}
       </div>
       <div className=" flex gap-4 text-body-medium items-center">
-        <UserButton />
-        <p>Edit Profile</p>
+        {user ? (<UserButton afterSignOutUrl='/sign-in' />) : (<Link href='/sign-in' className=' text-base-bold'><CircleUserRoundIcon /></Link>)}
+        {user ? (<p>Edit Profile</p>) : (<Link href='/sign-in' className=' text-base-bold'>Sign-in</Link>)}
+        
       </div>
     </div>
   );
